@@ -48,6 +48,6 @@ const router = new VueRouter({
     ],
 });
 
-router.replace('/categories');
+router.replace('/home');
 
 module.exports = router;
