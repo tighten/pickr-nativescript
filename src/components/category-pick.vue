@@ -3,7 +3,7 @@
         <ActionBar title="Pick a category">
             <NavigationButton
                 android.systemIcon="ic_menu_back"
-                @tap="$router.push('/home')"/
+                @tap="$router.back()"/
             >
         </ActionBar>
 
@@ -11,6 +11,7 @@
             <Label class="h1 text-center p-y-10" :text="category.name"/>
 
             <Label class="h1 text-center p-y-10" :text="random_item.name"/>
+
             <Label class="h3 text-center p-y-10" :text="random_item.description"/>
 
             <Button class="btn btn-primary" @tap="pickRandomItem">Pick Again!</Button>

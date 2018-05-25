@@ -11,6 +11,8 @@
             <ListPicker :items="category_array" v-model="selected" />
 
             <Button class="btn btn-primary" @tap="$router.push('/categories/' + selected_id + '/pick')">Pick Something!</Button>
+
+            <Button class="btn btn-primary" @tap="$router.push('/categories/create')">Add Category</Button>
         </StackLayout>
     </Page>
 </template>
