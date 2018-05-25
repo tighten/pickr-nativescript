@@ -9,6 +9,7 @@ import CategoryEdit from '../components/category-edit';
 import CategoryUpdate from '../components/category-update';
 import CategoryIndex from '../components/category-index';
 import CategoryPick from '../components/category-pick';
+import ItemCreate from '../components/item-create';
 
 const router = new VueRouter({
     pageRouting: true,
@@ -32,6 +33,10 @@ const router = new VueRouter({
         {
             path: '/categories/:category_id/update',
             component: CategoryUpdate,
+        },
+        {
+            path: '/categories/:category_id/items-create',
+            component: ItemCreate,
         },
         {
             path: '/categories/create',

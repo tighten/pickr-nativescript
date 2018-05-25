@@ -12,13 +12,17 @@
 
             <Label class="h1 text-center p-y-10" :text="'Manage ' + category.name"/>
 
+            <ListView for="item in items" @itemTap="">
+                <v-template>
+                    <Label :text="item.name" />
+                </v-template>
+            </ListView>
+
+            <Button class="btn btn-primary" @tap="addItem">+</Button>
+
             <Button class="btn btn-primary" @tap="edit">Edit</Button>
 
             <Button class="btn btn-primary" @tap="remove">Delete</Button>
-
-            <!-- <TextField v-model="name" hint="Category Name" /> -->
-
-            <!-- <Button class="btn btn-primary" @tap="create">Add</Button> -->
         </StackLayout>
     </Page>
 </template>
@@ -41,18 +45,14 @@ export default {
     },
 
     methods: {
+        addItem() {
+            this.$router.push('/categories/' + this.category_id + '/items-create');
+        },
         edit() {
             this.$router.push('/categories/' + this.category_id + '/update');
         },
         remove() {
 
-        },
-        create() {
-            this.$store.post('categories', {
-                name: this.name,
-            }).then(() => {
-                this.$router.back()
-            });
         },
     },
 };
