@@ -26,14 +26,8 @@ export default {
 
     computed: {
         category() {
-            return this.$categories.find((category) => {
-                return category.id == this.category_id;
-            });
+            return this.$store.get('categories', this.category_id);
         },
-    },
-
-    created() {
-        console.log(this.$route.params);
     },
 };
 </script>
