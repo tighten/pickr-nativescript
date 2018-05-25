@@ -1,11 +1,13 @@
 <template>
-  <Page class="page">
-    <ActionBar class="action-bar" title="Home"/>
+    <Page class="page">
+        <ActionBar class="action-bar" title="Home"/>
 
-    <StackLayout>
-      <Button class="btn btn-primary" @tap="$router.push('/counter')">Counter</Button>
-      <Button class="btn btn-primary" @tap="$router.push('/hello')">Hello World</Button>
-    </StackLayout>
+        <StackLayout class="p-x-10" verticalAlignment="center">
+            <Label class="h1 text-center" text="Pickr"/>
 
-  </Page>
+            <Label class="h3 text-center p-y-10" textWrap=true text="For when indecision may or may not be your problem"/>
+
+            <Button class="btn btn-primary" @tap="$router.push('/categories')">Get Started</Button>
+        </StackLayout>
+    </Page>
 </template>

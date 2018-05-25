@@ -3,30 +3,26 @@ import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
 
-import Home from '../components/Home';
-import HelloWorld from '../components/HelloWorld';
+import Home from '../components/home';
+import CategoryIndex from '../components/category-index';
 
 const router = new VueRouter({
-  pageRouting: true,
-  routes: [
-    {
-      path: '/home',
-      component: Home,
-      meta: {
-        title: 'Home',
-      },
-    },
-    {
-      path: '/hello',
-      component: HelloWorld,
-      meta: {
-        title: 'Hello World',
-      },
-    },
-    {path: '*', redirect: '/home'},
-  ],
+    pageRouting: true,
+    routes: [
+        {
+            path: '/home',
+            component: Home,
+        },
+        {
+            path: '/categories',
+            component: CategoryIndex,
+        },
+        {
+            path: '*', redirect: '/home'
+        },
+    ],
 });
 
-router.replace('/home');
+router.replace('/categories');
 
 module.exports = router;
