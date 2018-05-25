@@ -25,10 +25,10 @@ export default {
 
     computed: {
         categories() {
-            return this.$categories;
+            return this.$store.get('categories') || [];
         },
         selected_id() {
-            return this.categories[this.selected].id;
+            return this.$_.get(this.categories, this.selected, {}).id;
         },
         category_array() {
             return this.categories.map((category) => {
