@@ -5,6 +5,7 @@ Vue.use(VueRouter);
 
 import Home from '../components/home';
 import CategoryIndex from '../components/category-index';
+import CategoryPick from '../components/category-pick';
 
 const router = new VueRouter({
     pageRouting: true,
@@ -16,6 +17,10 @@ const router = new VueRouter({
         {
             path: '/categories',
             component: CategoryIndex,
+        },
+        {
+            path: '/categories/:category_id/pick',
+            component: CategoryPick,
         },
         {
             path: '*', redirect: '/home'

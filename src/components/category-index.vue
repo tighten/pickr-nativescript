@@ -9,6 +9,8 @@
 
         <StackLayout>
             <ListPicker :items="category_array" v-model="selected" />
+
+            <Button class="btn btn-primary" @tap="$router.push('/categories/' + selected_id + '/pick')">Pick Something!</Button>
         </StackLayout>
     </Page>
 </template>
@@ -17,35 +19,21 @@
 export default {
     data() {
         return {
-            categories: [
-                {
-                    id: 1,
-                    name: 'Category One',
-                },
-                {
-                    id: 2,
-                    name: 'Category Two',
-                },
-                {
-                    id: 3,
-                    name: 'Category Three',
-                },
-            ],
             selected: null,
         }
     },
 
     computed: {
+        categories() {
+            return this.$categories;
+        },
+        selected_id() {
+            return this.categories[this.selected].id;
+        },
         category_array() {
             return this.categories.map((category) => {
                 return category.name;
             });
-        },
-    },
-
-    watch: {
-        selected(val) {
-            console.log('selected ' + val);
         },
     },
 };
