@@ -4,9 +4,10 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
 import Home from '../components/home';
+import CategoryCreate from '../components/category-create';
+import CategoryEdit from '../components/category-edit';
 import CategoryIndex from '../components/category-index';
 import CategoryPick from '../components/category-pick';
-import CategoryCreate from '../components/category-create';
 
 const router = new VueRouter({
     pageRouting: true,
@@ -22,6 +23,10 @@ const router = new VueRouter({
         {
             path: '/categories/:category_id/pick',
             component: CategoryPick,
+        },
+        {
+            path: '/categories/:category_id/edit',
+            component: CategoryEdit,
         },
         {
             path: '/categories/create',

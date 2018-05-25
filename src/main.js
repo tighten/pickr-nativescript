@@ -2,6 +2,7 @@ import Vue from 'nativescript-vue';
 import router from './router';
 import './styles.scss';
 const axios = require('axios');
+import {TNSFontIcon, fonticon} from 'nativescript-fonticon';
 
 Vue.prototype.$_ = require('lodash');
 
@@ -41,6 +42,14 @@ let store = new Store({
 Vue.prototype.$store = store;
 
 store.fetch('categories');
+
+//TNSFontIcon.debug = true;
+TNSFontIcon.paths = {
+  'la': './assets/line-awesome.css'
+};
+TNSFontIcon.loadCss();
+
+Vue.filter('fonticon', fonticon);
 
 new Vue({
     router,
