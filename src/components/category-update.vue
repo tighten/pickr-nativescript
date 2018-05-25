@@ -1,6 +1,6 @@
 <template>
     <Page class="page">
-        <ActionBar title="Manage category">
+        <ActionBar title="Update category">
             <NavigationButton
                 android.systemIcon="ic_menu_back"
                 @tap="$router.back()"/
@@ -8,17 +8,13 @@
         </ActionBar>
 
         <StackLayout class="p-10">
-            <!-- <Label class="la" @tap="" :text="'la-pencil' | fonticon" fontSize="24" /> -->
+            <Label class="h1 text-center p-y-10" :text="'Update ' + category.name"/>
 
-            <Label class="h1 text-center p-y-10" :text="'Manage ' + category.name"/>
+            <TextField v-model="name" hint="Category Name" />
 
-            <Button class="btn btn-primary" @tap="edit">Edit</Button>
+            <Button class="btn btn-primary" @tap="save">Save</Button>
 
-            <Button class="btn btn-primary" @tap="remove">Delete</Button>
-
-            <!-- <TextField v-model="name" hint="Category Name" /> -->
-
-            <!-- <Button class="btn btn-primary" @tap="create">Add</Button> -->
+            <Button class="btn btn-primary" @tap="remove">Delete Category</Button>
         </StackLayout>
     </Page>
 </template>
@@ -28,6 +24,7 @@ export default {
     data() {
         return {
             category_id: this.$route.params.category_id,
+            name: '',
         }
     },
 
@@ -41,13 +38,21 @@ export default {
     },
 
     methods: {
-        edit() {
-            this.$router.push('/categories/' + this.category_id + '/update');
+        save() {
+            this.$store.put('categories', {
+                id: this.category_id,
+                name: this.name
+            }).then((response) => {
+                this.$router.back();
+            });
         },
         remove() {
-
+            this.$store.delete('categories', this.category_id)
+            .then((response) => {
+                this.$router.back();
+            });
         },
-        create() {
+        update() {
             this.$store.post('categories', {
                 name: this.name,
             }).then(() => {

@@ -164,7 +164,7 @@ class Store {
 
     put(endpoint, data, resource, options) {
         return new Promise((resolve, reject) => {
-            this.api.put(this._url(endpoint), data.id, data, options)
+            this.api.put(this._url(endpoint + '/' + data.id), data.id, data, options)
                 .then((response) => {
                     this.update(resource || endpoint.split('/'), response.data);
                     resolve(response);
@@ -174,11 +174,9 @@ class Store {
         });
     }
 
-    delete(endpoint, data, resource, options) {
+    delete(endpoint, id, resource, options) {
         return new Promise((resolve, reject) => {
-            let id = Number.isInteger(data) ? data : data.id;
-
-            this.api.delete(this._url(endpoint), id, data, options)
+            this.api.delete(this._url(endpoint), id, options)
                 .then((response) => {
                     this.remove(resource || endpoint.split('/'), id);
                     resolve(response);
