@@ -19,8 +19,23 @@ const getters = {
 }
 
 const mutations= {
+    setSelectedCategory(state, id) {
+        state.selected_category_id = id;
+    },
     setCategories(state, categories) {
         state.categories = categories;
+    },
+    addCategory(state, payload) {
+        state.categories.push(Object.assign(payload, { items: [] }));
+        state.selected_category_id = payload.id;
+    },
+    deleteCategory(state, id) {
+        let index = state.categories.findIndex(category => category.id === id);
+
+        if (index > -1) {
+            state.categories.splice(index, 1);
+            state.selected_category_id = null;
+        }
     },
     setCategory(state, payload) {
         let category = state.categories.find(
@@ -31,18 +46,6 @@ const mutations= {
             Object.assign(category, payload);
         }
     },
-    deleteCategory(state, id) {
-        let index = state.categories.findIndex(category => category.id === id);
-
-        if (index > -1) {
-            state.categories.splice(index, 1);
-            state.selected_category_id = null;
-        }
-    },
-    addCategory(state, payload) {
-        state.categories.push(Object.assign(payload, { items: [] }));
-        state.selected_category_id = payload.id;
-    },
     addItem(state, payload) {
         let category = state.categories.find(
             category => category.id === state.selected_category_id
@@ -51,9 +54,6 @@ const mutations= {
         if (category) {
             category.items.push(payload)
         }
-    },
-    setSelectedCategory(state, id) {
-        state.selected_category_id = id;
     },
     clearErrors(state) {
         state.errors = {};
@@ -80,20 +80,20 @@ const actions = {
                 console.log('Category create ERROR', error);
             });
     },
-    updateSelectedCategory({state, commit}, payload) {
-        api.put('api/categories/' + state.selected_category_id, { name: payload.name })
-            .then(response => {
-                commit('setCategory', response.data);
-            }).catch(error => {
-                console.log('Category update ERROR', error);
-            });
-    },
     deleteCategory({state, commit}, id) {
         api.delete('api/categories/' + id)
             .then(response => {
                 commit('deleteCategory', id);
             }).catch(error => {
                 console.log('Category delete ERROR', error.response.data);
+            });
+    },
+    updateSelectedCategory({state, commit}, payload) {
+        api.put('api/categories/' + state.selected_category_id, { name: payload.name })
+            .then(response => {
+                commit('setCategory', response.data);
+            }).catch(error => {
+                console.log('Category update ERROR', error);
             });
     },
     createItem({state, commit}, payload) {
