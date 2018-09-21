@@ -8,9 +8,7 @@ import './styles.scss';
 Vue.config.silent = (TNS_ENV === 'production');
 
 /* API */
-import Api from './store/api';
-let api = new Api({ baseURL: 'http://127.0.0.1:8000/api' });
-Vue.prototype.$api = api;
+import api from './api';
 
 /* Vuex */
 import store from './store';
