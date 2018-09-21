@@ -27,11 +27,9 @@ export default {
     },
     methods: {
         create() {
-            this.$store.post('categories', {
+            this.$store.dispatch('createCategory', {
                 name: this.name,
-            }).then(() => {
-                this.$navigateBack()
-            });
+            }).then(this.$navigateBack);
         },
     },
 };

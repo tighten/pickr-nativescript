@@ -10,7 +10,7 @@
         <StackLayout class="p-10">
             <!-- <Label class="la" @tap="" :text="'la-pencil' | fonticon" fontSize="24" /> -->
 
-            <Label class="h1 text-center p-y-10" :text="'Manage ' + category.name"/>
+            <Label class="h1 text-center p-y-10" :text="'Manage ' + category_name"/>
 
             <ListView for="item in items" @itemTap="">
                 <v-template>
@@ -18,11 +18,9 @@
                 </v-template>
             </ListView>
 
-            <Button class="btn btn-primary" @tap="addItem">+</Button>
+            <Button class="btn btn-primary" @tap="addItem">+ Add Item</Button>
 
-            <Button class="btn btn-primary" @tap="edit">Edit</Button>
-
-            <Button class="btn btn-primary" @tap="remove">Delete</Button>
+            <Button class="btn btn-primary" @tap="edit">Edit Category</Button>
         </StackLayout>
     </Page>
 </template>
@@ -33,34 +31,23 @@ import ItemCreate from './ItemCreate.vue';
 
 export default {
     name: 'CategoryEdit',
-    props: {
-        category_id: {},
-    },
     computed: {
         category() {
-            return this.$store.get('categories', this.category_id);
+            return this.$store.getters.selected_category;
+        },
+        category_name() {
+            return this.category ? this.category.name : null;
         },
         items() {
-            return this.$store.get(['categories', this.category_id, 'items']);
+            return this.category ? this.category.items || [] : [];
         },
     },
     methods: {
         addItem() {
-            this.$navigateTo(ItemCreate, {
-                props: {
-                    category_id: this.category_id,
-                },
-            });
+            this.$navigateTo(ItemCreate);
         },
         edit() {
-            this.$navigateTo(CategoryUpdate, {
-                props: {
-                    category_id: this.category_id,
-                },
-            });
-        },
-        remove() {
-            //
+            this.$navigateTo(CategoryUpdate);
         },
     },
 };

@@ -8,7 +8,7 @@
         </ActionBar>
 
         <StackLayout>
-            <ListPicker :items="category_array" v-model="selected" />
+            <ListPicker :items="category_array" v-model="selected_index" />
 
             <Button class="btn btn-primary" @tap="pickFromCategory">Pick Something!</Button>
 
@@ -28,15 +28,17 @@ export default {
     name: 'CategoryIndex',
     data() {
         return {
-            selected: 0,
+            selected_index: 0,
         }
     },
     computed: {
         categories() {
-            return this.$store.get('categories') || [];
+            return this.$store.state.categories;
         },
         selected_id() {
-            return this.categories ? this.categories[this.selected].id : 0;
+            return this.categories.length && this.categories[this.selected_index] ?
+                this.categories[this.selected_index].id :
+                0;
         },
         category_array() {
             return this.categories.map((category) => {
@@ -49,18 +51,18 @@ export default {
             this.$navigateTo(CategoryCreate);
         },
         manageCategory() {
-            this.$navigateTo(CategoryEdit, {
-                props: {
-                    category_id: this.selected_id,
-                },
-            });
+            this.$navigateTo(CategoryEdit);
         },
         pickFromCategory() {
-            this.$navigateTo(CategoryPick, {
-                props: {
-                    category_id: this.selected_id,
-                },
-            });
+            this.$navigateTo(CategoryPick);
+        },
+    },
+    watch: {
+        selected_id: {
+            immediate: true,
+            handler(val) {
+                this.$store.commit('setSelectedCategory', val);
+            }
         },
     },
 };

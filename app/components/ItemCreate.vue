@@ -22,9 +22,6 @@
 <script>
 export default {
     name: 'ItemCreate',
-    props: {
-        category_id: {},
-    },
     data() {
         return {
             description: '',
@@ -33,12 +30,10 @@ export default {
     },
     methods: {
         create() {
-            this.$store.post(['categories', this.category_id, 'items'], {
-                name: this.name,
-                description: this.description,
-            }).then(() => {
-                this.$navigateBack();
-            });
+            this.$store.dispatch('createItem', {
+                    name: this.name,
+                    description: this.description,
+                }).then(this.$navigateBack);
         },
     },
 };

@@ -7,7 +7,7 @@
             />
         </ActionBar>
 
-        <StackLayout  class="p-x-10 p-t-20">
+        <StackLayout class="p-x-10 p-t-20">
             <Label class="category h2 text-center p-y-10" :text="category.name"/>
 
             <Label class="h1 text-center p-t-10" :text="random_item.name"/>
@@ -24,9 +24,6 @@ import sample from 'lodash/sample';
 
 export default {
     name: 'CategoryPick',
-    props: {
-        category_id: {},
-    },
     data() {
         return {
             random_item: {},
@@ -34,10 +31,10 @@ export default {
     },
     computed: {
         category() {
-            return this.$store.get('categories', this.category_id);
+            return this.$store.getters.selected_category;
         },
         items() {
-            return this.$store.get(['categories', this.category_id, 'items']);
+            return this.category.items;
         },
     },
     methods: {

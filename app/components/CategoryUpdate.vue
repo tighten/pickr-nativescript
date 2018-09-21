@@ -8,9 +8,9 @@
         </ActionBar>
 
         <StackLayout class="p-10">
-            <Label class="h1 text-center p-y-10" :text="'Update ' + category.name"/>
+            <Label class="h1 text-center p-y-10" :text="'Update ' + category_name"/>
 
-            <TextField v-model="name" hint="Category Name" />
+            <TextField v-model="category_name" hint="Category Name" />
 
             <Button class="btn btn-primary" @tap="save">Save</Button>
 
@@ -20,40 +20,39 @@
 </template>
 
 <script>
+import CategoryIndex from '@/components/CategoryIndex.vue';
+
 export default {
     name: 'CategoryUpdate',
-    props: {
-        category_id: {},
+    data() {
+        return {
+            category_id: this.$store.getters.selected_category ?
+                this.$store.getters.selected_category.id :
+                null,
+            category_name: this.$store.getters.selected_category ?
+                this.$store.getters.selected_category.name :
+                null,
+        }
     },
     computed: {
         category() {
-            return this.$store.get('categories', this.category_id);
+            return this.$store.getters.selected_category;
         },
         items() {
-            return this.$store.get(['categories', this.category_id, 'items']);
+            return this.category.items;
         },
     },
     methods: {
         save() {
-            this.$store.put('categories', {
-                id: this.category_id,
-                name: this.name
-            }).then((response) => {
-                this.$navigateBack();
-            });
+            this.$store.dispatch('updateSelectedCategory', {
+                    name: this.category_name,
+                }).then(this.$navigateBack);
         },
         remove() {
-            this.$store.delete('categories', this.category_id)
-            .then((response) => {
-                this.$navigateBack();
-            });
-        },
-        update() {
-            this.$store.post('categories', {
-                name: this.name,
-            }).then(() => {
-                this.$navigateBack();
-            });
+            this.$store.dispatch('deleteCategory', this.category_id)
+                .then(() => {
+                    this.$navigateTo(CategoryIndex);
+                });
         },
     },
 };
