@@ -12,16 +12,15 @@ import Api from './store/api';
 let api = new Api({ baseURL: 'http://127.0.0.1:8000/api' });
 Vue.prototype.$api = api;
 
-/* Store */
-import Store from './store/store';
-let store = new Store({
-    categories: [],
-}, api);
-Vue.prototype.$store = store;
-store.fetch('categories');
+/* Vuex */
+import store from './store';
 
 import Home from './components/Home';
 
 new Vue({
+    store,
     render: h => h('frame', [h(Home)]),
+    created() {
+        store.dispatch('fetchCategories');
+    },
 }).$start();
